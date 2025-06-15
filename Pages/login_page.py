@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.by import By
+import os
 
 class LoginLocators:
     HEADER= (By.XPATH, "//h1[@class='entry-title']")
@@ -19,7 +20,19 @@ class LoginPage(BasePage):
         )
         return header_text.text
 
-    def input_name(self):
-        pass
+    def input_email(self, email):
+        email = os.environ.get("EMAIL")
+        email_input = self.driver.find_element(*LoginLocators.USERNAME_REGISTER)
+        email_input.send_keys(email)
+
+    def input_password(self, password):
+        TEST_PASSWORD =os.environ.get("TEST_PASSWORD")
+        password_input = self.driver.find_element(*LoginLocators.PASSWORD_REGISTER)
+        password_input.send_keys(TEST_PASSWORD)
+
+    def click_button(self):
+        self.driver.find_element(*LoginLocators.REGISTER_BUTTON).click()
+
+
 
 
